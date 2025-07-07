@@ -46,28 +46,15 @@ This project will test your ability to manage complex UI state, synchronise mult
 
 ### API Endpoints
 
-Data can be called via a `fetch` request to the following three endpoints. Note that there is not always a one-to-one mapping between endpoints and actual data structures. Also note that **\*`<ID>`** indicates where the dynamic ID for the requested item should be placed. For example: `[https://podcast-api.netlify.app/genre/3](https://podcast-api.netlify.app/genre/3)`\*
+Data can be called via a `fetch` request to the following endpoint.
 
-| URL                                          |                             |
-| -------------------------------------------- | --------------------------- |
-| `https://podcast-api.netlify.app`            | Returns an array of PREVIEW |
-| `https://podcast-api.netlify.app/genre/<ID>` | Returns a GENRE object      |
+| URL                               |                             |
+| --------------------------------- | --------------------------- |
+| `https://podcast-api.netlify.app` | Returns an array of PREVIEW |
 
 ### Genre Titles
 
-Since genre information is only exposed on `PREVIEW` by means of the specific `GENRE` id, it is recommended that you include the mapping between genre id values and title in your code itself:
-
-| ID  | Title                    |
-| --- | ------------------------ |
-| 1   | Personal Growth          |
-| 2   | Investigative Journalism |
-| 3   | History                  |
-| 4   | Comedy                   |
-| 5   | Entertainment            |
-| 6   | Business                 |
-| 7   | Fiction                  |
-| 8   | News                     |
-| 9   | Kids and Family          |
+Since the podcast preview information fetched from the API only exposes genres by their IDs, the actual genre details (such as titles) are not included in the API response. These details are instead provided in the data.js file found in this repository. Therefore, it is recommended that you include the mapping between genre ID values and their corresponding titles in your code using this file.
 
 ## Project Deliverables
 

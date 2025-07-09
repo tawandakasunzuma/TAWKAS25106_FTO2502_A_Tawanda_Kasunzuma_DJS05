@@ -11,6 +11,7 @@ export default function Header () {
                 <h1 className="app-name">Podcast App</h1>
             </div>
             <div className="header-right">
+                <input className="search-bar" type="text" placeholder="Search..." />
                 <img
                     className="search-icon icon-2"
                     src={searchIcon}

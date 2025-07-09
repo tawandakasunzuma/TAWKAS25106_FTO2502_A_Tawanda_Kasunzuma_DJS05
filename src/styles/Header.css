@@ -28,6 +28,12 @@ header {
     font-size: 1.5rem;
 }
 
+.search-bar {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--medium-gray-color);
+    border-radius: var(--normal-border-radius);
+}
+
 .search-icon {
     width: 20px;
 }

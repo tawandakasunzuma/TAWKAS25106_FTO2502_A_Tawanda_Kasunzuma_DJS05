@@ -3,7 +3,8 @@ import accountCircle from '../assets/images/account-circle-icon.svg'
 import searchIcon from "../assets/images/search-icon.svg"
 import podcastIcon from "../assets/images/podcast-icon.svg"
 
-export default function Header () {
+export default function Header ({searchLetters,setSearchLetters}) {
+
     return (
         <header>
             <div className="header-left">
@@ -11,7 +12,12 @@ export default function Header () {
                 <h1 className="app-name">Podcast App</h1>
             </div>
             <div className="header-right">
-                <input className="search-bar" type="text" placeholder="Search..." />
+                <input 
+                    className="search-bar" 
+                    type="text" 
+                    placeholder="Search..."
+                    value={searchLetters}
+                    onChange={event => setSearchLetters(event.target.value)} />
                 <img
                     className="search-icon icon-2"
                     src={searchIcon}

@@ -2,11 +2,17 @@ import "../styles/Main.css"
 import FilterSection from "./FilterSection"
 import CardSection from "./CardSection"
 
-export default function Main ({podcastData}) {
+export default function Main (props) {
     return (
         <main>
-            <FilterSection />
-            <CardSection podcastData={podcastData} />
+            <FilterSection 
+                selectedGenre={props.selectedGenre} 
+                setSelectedGenre={props.setSelectedGenre} 
+                sortOrder={props.sortOrder} 
+                setSortOrder={props.setSortOrder} 
+            />
+
+            <CardSection podcastData={props.podcastData} />
         </main>
     )
 }

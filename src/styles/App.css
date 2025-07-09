@@ -1,0 +1,71 @@
+/* ===============
+    Loader
+=============== */
+
+.loading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-circle {
+    width: 160px;
+    height: 160px;
+    border: 10px solid rgba(35, 70, 105, 0.125);
+    border-top: 10px solid rgba(35, 70, 105,0.5);
+    border-radius: 50%;
+    animation: spinnerLoader 1200ms linear infinite;
+}
+
+@keyframes spinnerLoader {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .loading-circle {
+        width: 120px;
+        height: 120px;
+        border: 8px solid rgba(35, 70, 105, 0.125);
+        border-top: 8px solid rgba(35, 70, 105,0.5);
+    }
+}
+
+/* ===============
+    Error Message
+=============== */
+
+.error-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(35, 70, 105, 0.75);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    animation: borderFlicker 1200ms ease-in-out infinite alternate;
+}
+
+@keyframes borderFlicker {
+    75% {
+        border: 2px solid rgba(35, 70, 105, 0.25);
+    }
+    100% {
+        border: 2px solid rgba(35, 70, 105, 0.0625)
+    }
+}
+
+.error-msg {
+    color: rgb(35, 70, 105);
+    font-size: 1.125rem;
+}
+
+@media (max-width: 600px) {
+    .error-msg {
+        color: rgb(35, 70, 105);
+        font-size: 1.125rem;
+        font-weight: bold;
+    }
+}

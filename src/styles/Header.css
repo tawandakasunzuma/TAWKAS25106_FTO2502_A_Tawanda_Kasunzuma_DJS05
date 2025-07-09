@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--normal-padding) var(--large-padding);
+    box-shadow: 0 2px 4px var(--light-gray-color);
+}
+
+.header-left {
+    display: flex;
+    gap: var(--normal-gap);
+}
+
+.header-right {
+    display: flex;
+    gap: var(--normal-gap);
+}
+
+.icon-1,
+.icon-2,
+.icon-3 {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+.app-name {
+    font-size: 1.5rem;
+}
+
+.search-icon {
+    width: 20px;
+}

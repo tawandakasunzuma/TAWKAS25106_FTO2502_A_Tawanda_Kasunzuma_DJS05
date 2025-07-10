@@ -13,8 +13,8 @@ export default function App() {
 
   // State for search, filter, sort, page state
   const [searchLetters,setSearchLetters] = useState("");
-  const [selectedGenre,setSelectedGenre] = useState("All-Genres");
-  const [sortOrder,setSortOrder] = useState("date-desc");
+  const [selectedGenre,setSelectedGenre] = useState("All Genres");
+  const [sortOrder,setSortOrder] = useState("Default");
   const [currentPage,setCurrentPage] = useState(1);
 
   // Podcasts displayed per page
@@ -53,10 +53,31 @@ export default function App() {
     console.log({ searchLetters, selectedGenre, sortOrder, currentPage});
   }, [searchLetters, selectedGenre, sortOrder, currentPage]);
 
-  // Filter podcasts to show podcasts with letters typed
-  const filteredData = podcastData.filter(podcast => (
+  // Filter by title in search bar
+  let filteredData = podcastData.filter(podcast => (
     podcast.title.toLowerCase().includes(searchLetters.toLowerCase())
   ));
+
+  // Filter by genre
+  if (selectedGenre !== "All Genres") {
+    const genreId = Number(selectedGenre);
+    filteredData = filteredData.filter(podcast => (
+      podcast.genres.includes(genreId)
+    ))
+  }
+
+  // Sort in order
+  filteredData.sort((a,b) => {
+    if (sortOrder === "Newest") {
+      return new Date (b.updated) - new Date(a.updated);
+    } else if (sortOrder === "Oldest") {
+      return new Date (a.updated) - new Date(b.updated);
+    } else if (sortOrder === "TitleAsc") {
+      return a.title.localeCompare(b.title);      
+    } else if (sortOrder === "TitleDesc") {
+      return b.title.localeCompare(a.title);
+    }
+  });
 
   // Go back to page 1 when letters typed
   useEffect(() => {
@@ -97,6 +118,7 @@ export default function App() {
       {loading && 
         <div className='loading-container'>
           <div className='loading-circle'></div>
+          <p className='loading-text'>Loading...</p>
         </div>
       }
     </>

@@ -7,15 +7,26 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 .loading-circle {
-    width: 160px;
-    height: 160px;
-    border: 10px solid rgba(35, 70, 105, 0.125);
-    border-top: 10px solid rgba(35, 70, 105,0.5);
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(35, 70, 105, 0.125);
+    border-top: 5px solid rgba(35, 70, 105,0.5);
+    border-right: 5px solid rgba(35, 70, 205,0.75);
     border-radius: 50%;
     animation: spinnerLoader 1200ms linear infinite;
+}
+
+.loading-text {
+    color: rgb(35, 70, 105);
+    font-size: 1rem;
 }
 
 @keyframes spinnerLoader {
@@ -28,8 +39,8 @@
     .loading-circle {
         width: 120px;
         height: 120px;
-        border: 8px solid rgba(35, 70, 105, 0.125);
-        border-top: 8px solid rgba(35, 70, 105,0.5);
+        border: 4px solid rgba(35, 70, 105, 0.125);
+        border-top: 4px solid rgba(35, 70, 105,0.5);
     }
 }
 

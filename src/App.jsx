@@ -11,7 +11,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [hasError,setHasError] = useState(false);
 
-  // State for search, filter, sort, pagination
+  // State for search, filter, sort, page state
   const [searchLetters,setSearchLetters] = useState("");
   const [selectedGenre,setSelectedGenre] = useState("All-Genres");
   const [sortOrder,setSortOrder] = useState("date-desc");
@@ -53,6 +53,16 @@ export default function App() {
     console.log({ searchLetters, selectedGenre, sortOrder, currentPage});
   }, [searchLetters, selectedGenre, sortOrder, currentPage]);
 
+  // Filter podcasts to show podcasts with letters typed
+  const filteredData = podcastData.filter(podcast => (
+    podcast.title.toLowerCase().includes(searchLetters.toLowerCase())
+  ));
+
+  // Go back to page 1 when letters typed
+  useEffect(() => {
+    setCurrentPage(1)
+  },[searchLetters]);
+
   return (
     <>
       <Header 
@@ -61,7 +71,7 @@ export default function App() {
       />
 
       <Main 
-        podcastData={podcastData}
+        podcastData={filteredData}
 
         searchLetters={searchLetters}
 

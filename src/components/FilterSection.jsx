@@ -1,39 +1,43 @@
 import "../styles/FilterSection.css"
+import genres from "../assets/genres"
 
 export default function FilterSection ({selectedGenre,setSelectedGenre,sortOrder,setSortOrder}) {
-    return (
-      <section className="filter-section">
 
-        <p className="filter-by-text">Filter by:</p>
+  const genreList = genres.map(genre => (
+    <option value={genre.id} key={genre.id}>{genre.title}</option>
+  ));
 
-        <select 
-          name="all-genres" 
-          className="all-genres" 
-          value={selectedGenre || "All-Genres"}
-          onChange={event => setSelectedGenre(event.target.value)}
-        >
+  return (
+    <section className="filter-section">
 
-          <option value="All Genres">All Genres</option>
-          <option value="Genre 1">Genre 1</option>
-          <option value="Genre 2">Genre 2</option>
-          <option value="Genre 3">Genre 3</option>
-          <option value="Genre 4">Genre 4</option>
-        
-        </select>
-        
-        <select 
-          name="recently-updated" 
-          className="recently-updated"
-          value={sortOrder}
-          onChange={event => setSortOrder(event.target.value)}
-        >
+      <p className="filter-by-text">Filter by:</p>
 
-          <option value="Recently Updated">Recently Updated</option>
-          <option value="Most Popular">Most Popular</option>
-          <option value="Newest">Newest</option>
-        
-        </select>
+      <select 
+        name="all-genres" 
+        className="all-genres" 
+        value={selectedGenre || "All Genres"}
+        onChange={event => setSelectedGenre(event.target.value)}
+      >
+
+        <option value="All Genres">All Genres</option>
+        {genreList}
       
-      </section>
-    )
+      </select>
+      
+      <select 
+        name="recently-updated" 
+        className="recently-updated"
+        value={sortOrder}
+        onChange={event => setSortOrder(event.target.value)}
+      >
+
+        <option value="Newest">Recently Updated (Newest)</option>
+        <option value="Oldest">Last Updated (Oldest)</option>
+        <option value="TitleAsc">Title (A-Z)</option>
+        <option value="TitleDesc">Title (Z -A)</option>
+      
+      </select>
+    
+    </section>
+  )
 }

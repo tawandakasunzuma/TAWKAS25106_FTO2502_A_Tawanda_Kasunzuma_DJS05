@@ -14,16 +14,13 @@ export default function App() {
   // State for search, filter, sort, page state
   const [searchLetters,setSearchLetters] = useState("");
   const [selectedGenre,setSelectedGenre] = useState("All Genres");
-  const [sortOrder,setSortOrder] = useState("Default");
+  const [sortOrder,setSortOrder] = useState("Newest");
   const [currentPage,setCurrentPage] = useState(1);
-
-  // Podcasts displayed per page
-  const podcastsPerPage = 12;
 
   useEffect(() => {
 
     //Fetch data from API
-    fetch("https://podcast-api.netlify.app/")
+    fetch("https://podcast-api.netlify.app/shows")
 
       // If response is OK, parse from JSON into a JS object
       .then(response => {
@@ -34,6 +31,7 @@ export default function App() {
       // Set podcast data to data fetched
       .then(data => {
         setPodcastData(data);
+        console.log("Total shows fetched:", data.length);
       })
   
       // Show error in console and on the UI
@@ -83,16 +81,38 @@ export default function App() {
   useEffect(() => {
     setCurrentPage(1)
   },[searchLetters]);
+  
+  // Podcasts displayed per page
+  const podcastsPerPage = 12;
+  
+  // Copy of filtered list
+  const processedData = [...filteredData];
+
+  // How may pages we need
+  const totalPages = Math.ceil(processedData.length / podcastsPerPage);
+
+  // Reset page back to Page 1 after changes
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  },[totalPages,currentPage])
+
+  // Get podcasts for current page
+  const startIndex = (currentPage - 1) * podcastsPerPage;
+  const endIndex = startIndex + podcastsPerPage;
+  const paginatedData = processedData.slice(startIndex,endIndex);
 
   return (
     <>
+      
       <Header 
         searchLetters={searchLetters} 
         setSearchLetters={setSearchLetters}
       />
 
       <Main 
-        podcastData={filteredData}
+        podcastData={paginatedData}
 
         searchLetters={searchLetters}
 
@@ -105,8 +125,10 @@ export default function App() {
         setCurrentPage={setCurrentPage}
 
         podcastsPerPage={podcastsPerPage}
+        totalPages={totalPages}
       />
 
+      {/* Show error if no data fetched */}
       {hasError && 
         <div className='error-container'>
           <p className='error-msg'>
@@ -115,12 +137,20 @@ export default function App() {
         </div>
       }
 
+      {/* Show loading info */}
       {loading && 
         <div className='loading-container'>
           <div className='loading-circle'></div>
           <p className='loading-text'>Loading...</p>
         </div>
       }
+
+      {/* Show no podcasts displayed */}
+      {filteredData.length === 0 && !loading && (
+          <div className="no-podcasts-container">
+            <p className="no-podcasts-text">No podcasts found</p>
+          </div>
+      )}
     </>
   )
 }

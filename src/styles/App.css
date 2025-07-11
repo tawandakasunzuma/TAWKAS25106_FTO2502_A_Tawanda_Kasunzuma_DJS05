@@ -80,3 +80,19 @@
         font-weight: bold;
     }
 }
+
+/* ===============
+    No podcast found
+=============== */
+
+.no-podcasts-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-podcasts-text {
+    color: var(--dark-gray-color);
+    font-size: 1.125rem;
+}

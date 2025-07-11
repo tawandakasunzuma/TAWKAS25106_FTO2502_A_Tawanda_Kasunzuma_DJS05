@@ -3,13 +3,16 @@ import Card from "./Card"
 
 export default function CardSection ({podcastData}) {
 
+    // Create cards from podcast data
     const cards = podcastData.map(podcast => (
         <Card key={podcast.id} podcastData={podcast} />
     ))
 
     return (
-        <section className="card-section">
-            {cards}
-        </section>
+        <>
+            <section className="card-section">
+                {cards}
+            </section>
+        </>
     )
 }

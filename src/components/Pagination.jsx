@@ -8,6 +8,17 @@ export default function Pagination ({ currentPage, totalPages, setCurrentPage })
         pages.push(i);
     };
 
+    // Generate buttons for each page
+    const numberOfPagesButtons = pages.map(page => (
+        <button
+            className={`pagination-button page-num-btn${page === currentPage ? ' active' : ''}`}
+            key={page}
+            onClick={() => setCurrentPage(page)}
+        >
+            {page}
+        </button>
+    ))
+
     // Previous page button click - Go to previous page
     function handlePreviousPageClick () {
         if (currentPage > 1) {
@@ -21,17 +32,6 @@ export default function Pagination ({ currentPage, totalPages, setCurrentPage })
             setCurrentPage(currentPage + 1);
         }
     }
-
-    // Generate buttons for each page
-    const numberOfPagesButtons = pages.map(page => (
-        <button
-            className={`pagination-button page-num-btn${page === currentPage ? ' active' : ''}`}
-            key={page}
-            onClick={() => setCurrentPage(page)}
-        >
-            {page}
-        </button>
-    ))
 
     return (
         <nav className="pagination-section">

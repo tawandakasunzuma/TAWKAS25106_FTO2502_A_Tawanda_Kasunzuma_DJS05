@@ -46,15 +46,15 @@ export default function App() {
       })
   },[])
 
-  // Check state updates when values change
-  useEffect(() => {
-    console.log({ searchLetters, selectedGenre, sortOrder, currentPage});
-  }, [searchLetters, selectedGenre, sortOrder, currentPage]);
-
   // Filter by title in search bar
   let filteredData = podcastData.filter(podcast => (
     podcast.title.toLowerCase().includes(searchLetters.toLowerCase())
   ));
+
+  // Go back to page 1 when letters typed
+  useEffect(() => {
+    setCurrentPage(1)
+  },[searchLetters]);
 
   // Filter by genre
   if (selectedGenre !== "All Genres") {
@@ -76,11 +76,6 @@ export default function App() {
       return b.title.localeCompare(a.title);
     }
   });
-
-  // Go back to page 1 when letters typed
-  useEffect(() => {
-    setCurrentPage(1)
-  },[searchLetters]);
   
   // Podcasts displayed per page
   const podcastsPerPage = 12;

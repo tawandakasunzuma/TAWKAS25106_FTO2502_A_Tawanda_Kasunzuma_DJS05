@@ -38,7 +38,7 @@
 }
 
 .pagination-button:disabled {
-    opacity: 0.325;
+    opacity: 0.5;
     cursor: default;
 }
 

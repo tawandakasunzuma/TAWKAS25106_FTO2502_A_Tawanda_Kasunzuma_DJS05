@@ -1,90 +1,101 @@
-# DSJ04 React Podcast App: Search, Sort, Filter, and Pagination
+# DJS05: Show Detail Page with Routing and Navigation
 
 ## Project Overview
 
-**Repo:** https://github.com/tawandakasunzuma/TAWKAS25106_FTO2502_A_Tawanda_Kasunzuma_DJS04
+In this project, you will build a podcast show detail page as part of a larger podcast browsing app. When users select a show from the homepage or listing page, they should be taken to a dedicated page that displays all details about that show. The app will support dynamic routing so each show has its own unique URL.
 
-This React app delivers an advanced podcast‑browsing experience where users can dynamically **search**, **sort**, **filter**, and **paginate** shows in real time without ever losing their current context (search terms, selected genres, sort order, or page). The project emphasizes seamless state management across multiple controls and clean, modular code design.
+You will implement data fetching based on the show ID in the URL, handle loading and error states gracefully, and ensure a smooth user experience by preserving search filters and pagination when users navigate back to the homepage. Additionally, you will build a season navigation system allowing users to expand or switch between seasons to browse episodes efficiently.
+
+This project will demonstrate your ability to work with dynamic routes, manage state across pages, handle asynchronous data, and create a clean, maintainable React codebase.
+
+---
 
 ## Core Objectives
 
-### Search Functionality
+- Implement **dynamic routing** for unique show detail pages.
+- Pass the correct show ID via route parameters and use it to **fetch specific show data**.
+- Gracefully handle **loading, error, and empty states** during data fetching.
+- Display comprehensive show details including title, image, description, genres, and last updated date.
+- Preserve previous **filters and search state** when navigating back to the homepage.
+- Create an intuitive **season navigation** UI to expand and switch between seasons without excessive scrolling.
+- Display episode information clearly with numbering, titles, images, and shortened descriptions.
+- Maintain **high code quality** with documentation (JSDoc) and consistent formatting.
 
-- Implement a flexible search that matches any part of the podcast title.
-- Results should update dynamically as the user types or upon submission.
-- Ensure that search results integrate with current filters, sorts, and pagination without resetting them.
-
-### Sorting Options
-
-- Allow sorting podcasts by:
-  - Newest first (based on last updated date).
-  - Title A–Z and Z–A.
-- Sorting must work in tandem with any search or filter criteria.
-
-### Filtering
-
-- Enable genre-based filtering using a dropdown or multi-select input.
-- Ensure filters work alongside current search, sort, and pagination state.
-- Maintain selected filters when navigating between pages or updating the list.
-
-### Pagination
-
-- Display podcasts in manageable chunks using pagination, load-more, or infinite scroll.
-- Ensure that pagination respects the currently active search, filter, and sort state.
-- Keep all UI selections intact while navigating pages.
-
-### State Synchronisation
-
-- Maintain a centralised and cleanly organised state using React state, context, or a state management library.
-- Ensure that all controls (search, sort, filter, pagination) reflect changes immediately and stay in sync.
-
-### Code Quality & Maintainability
-
-- Use JSDoc to document all major functions and modules.
-- Apply consistent formatting and naming conventions.
-- Keep logic modular and components reusable.
+---
 
 ### API Endpoints
 
-Data can be called via a `fetch` request to the following endpoint.
+Data can be called via a `fetch` request to the following three endpoints. Note that there is not always a one-to-one mapping between endpoints and actual data structures. Also note that **\*`<ID>`** indicates where the dynamic ID for the requested item should be placed. For example: `[https://podcast-api.netlify.app/genre/3](https://podcast-api.netlify.app/genre/3)`\*
 
-| URL                               |                             |
-| --------------------------------- | --------------------------- |
-| `https://podcast-api.netlify.app` | Returns an array of PREVIEW |
+| URL                                          |                                                                                        |
+| -------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `https://podcast-api.netlify.app`            | Returns an array of PREVIEW                                                            |
+| `https://podcast-api.netlify.app/genre/<ID>` | Returns a GENRE object                                                                 |
+| `https://podcast-api.netlify.app/id/<ID>`    | Returns a SHOW object with several SEASON and EPISODE objects directly embedded within |
 
 ### Genre Titles
 
-Since the podcast preview information fetched from the API only exposes genres by their IDs, the actual genre details (such as titles) are not included in the API response. These details are instead provided in the data.js file found in this repository. Therefore, it is recommended that you include the mapping between genre ID values and their corresponding titles in your code using this file.
+Since genre information is only exposed on `PREVIEW` by means of the specific `GENRE` id, it is recommended that you include the mapping between genre id values and title in your code itself:
 
-## Project Deliverables
+| ID  | Title                    |
+| --- | ------------------------ |
+| 1   | Personal Growth          |
+| 2   | Investigative Journalism |
+| 3   | History                  |
+| 4   | Comedy                   |
+| 5   | Entertainment            |
+| 6   | Business                 |
+| 7   | Fiction                  |
+| 8   | News                     |
+| 9   | Kids and Family          |
 
-- A fully functional React app that:
+## Deliverables
 
-  - Fetches and displays podcast data.
-  - Allows live searching, sorting, filtering, and pagination.
-  - Maintains consistent state across all UI interactions.
+1. **Homepage / Listing Page**
 
-- **Clean Codebase** with:
+   - List of shows with clickable links or buttons that navigate to each show's detail page.
+   - Filters and search functionality that maintain state when navigating back from detail pages.
 
-  - Reusable, modular components.
-  - Clear and consistent formatting across all files.
-  - JSDoc comments for functions/modules.
+2. **Dynamic Show Detail Page**
 
-- **README.md** with:
+   - A unique page for each show, accessible via a dynamic route.
+   - Fetch and display show details including:
+     - Title
+     - Large podcast image
+     - Description
+     - Genre tags
+     - Last updated date (formatted)
+   - Display loading indicator while fetching data.
+   - Display user-friendly error message if fetching fails.
+   - Handle empty states gracefully (e.g., show not found).
 
-  - Project overview and purpose.
-  - Setup and usage instructions.
-  - Descriptions of key features (search, filter, sort, pagination).
+3. **Season Navigation Component**
 
-- **Version Control (GitHub)**:
-  - Clear, meaningful commit messages.
-  - Incremental commits reflecting development progress.
+   - UI to expand/collapse seasons.
+   - Show season title and episode count.
+   - List episodes per season including:
+     - Episode number
+     - Episode title
+     - Season image
+     - Shortened episode description
 
-## Success Criteria
+4. **State Preservation**
 
-- No console errors or broken UI on load.
-- All features work correctly and together without losing state.
-- Clean, maintainable codebase with documentation.
-- A polished user experience with responsive layout and real-time updates.
+   - Maintain applied filters and search terms when navigating back to the homepage from a show detail page.
+
+5. **Code Quality**
+
+   - Well-structured, modular React components.
+   - JSDoc comments for all major functions and modules.
+   - Consistent and readable formatting across all files.
+
+6. **Responsive Design**
+
+   - The UI adapts smoothly across different device sizes (mobile, tablet, desktop).
+
+7. **README Documentation**
+   - Brief project overview.
+   - Instructions for running the project locally.
+   - Description of main features and any known limitations.
 
 ---

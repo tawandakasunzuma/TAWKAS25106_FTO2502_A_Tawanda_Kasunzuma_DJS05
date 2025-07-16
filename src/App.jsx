@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Main from './components/Main';
 
@@ -100,52 +101,67 @@ export default function App() {
 
   return (
     <>
+      <Routes>
       
-      <Header 
-        searchLetters={searchLetters} 
-        setSearchLetters={setSearchLetters}
-      />
+        <Header 
+          searchLetters={searchLetters} 
+          setSearchLetters={setSearchLetters}
+        />
 
-      <Main 
-        podcastData={paginatedData}
+        <Route 
+          path='/' 
+          element={
+            <Main 
+              podcastData={paginatedData}
 
-        searchLetters={searchLetters}
+              searchLetters={searchLetters}
 
-        selectedGenre={selectedGenre}
-        setSelectedGenre={setSelectedGenre}
-        sortOrder={sortOrder}
-        setSortOrder={setSortOrder}
+              selectedGenre={selectedGenre}
+              setSelectedGenre={setSelectedGenre}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
 
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
 
-        podcastsPerPage={podcastsPerPage}
-        totalPages={totalPages}
-      />
+              podcastsPerPage={podcastsPerPage}
+              totalPages={totalPages}
+            />
+          }
+        >
+        </Route>
 
-      {/* Show error if no data fetched */}
-      {hasError && 
-        <div className='error-container'>
-          <p className='error-msg'>
-            Data could not be fetched
-          </p>
-        </div>
-      }
+        <Route
+          path='/show/:id'
+          element={<ShowDetail />}
+        >
+        </Route>
 
-      {/* Show loading info */}
-      {loading && 
-        <div className='loading-container'>
-          <div className='loading-circle'></div>
-          <p className='loading-text'>Loading...</p>
-        </div>
-      }
-
-      {/* Show no podcasts displayed */}
-      {filteredData.length === 0 && !loading && (
-          <div className="no-podcasts-container">
-            <p className="no-podcasts-text">No podcasts found</p>
+        {/* Show error if no data fetched */}
+        {hasError && 
+          <div className='error-container'>
+            <p className='error-msg'>
+              Data could not be fetched
+            </p>
           </div>
-      )}
+        }
+
+        {/* Show loading info */}
+        {loading && 
+          <div className='loading-container'>
+            <div className='loading-circle'></div>
+            <p className='loading-text'>Loading...</p>
+          </div>
+        }
+
+        {/* Show no podcasts displayed */}
+        {filteredData.length === 0 && !loading && (
+            <div className="no-podcasts-container">
+              <p className="no-podcasts-text">No podcasts found</p>
+            </div>
+        )}   
+            
+      </Routes>
     </>
   )
 }

@@ -42,34 +42,36 @@ export default function Card ({podcastData}) {
     const formattedDate = getDate(podcastData);
 
     return (
-        <Link to={`/show/${podcastData.id}` className="card-link">
-            <article className="podcast-container">
-                
-                {/* Image container */}
-                <div className="image-container">
-                    <img className="podcast-image" src={podcastData.image} alt={`${podcastData.title} cover image`} loading="lazy" />
-                    <p className="podcast-cover-title">{podcastData.title}</p>
-                </div>
-                
-                {/* Podcast title */}
-                <h3 className="podcast-title">{podcastData.title}</h3>
-                
-                {/* Seasons section */}
-                <div className="seasons-section">
-                    <img className="seasons-icon" src={seasonsIcon} alt="Seasons icon" />
-                    <p className="num-seasons">{`${podcastData.seasons} seasons`}</p>
-                </div>
+        <>
+           <Link to={`/show/${podcastData.id}`}>
+                <article className="podcast-container">
+                    
+                    {/* Image container */}
+                    <div className="image-container">
+                        <img className="podcast-image" src={podcastData.image} alt={`${podcastData.title} cover image`} loading="lazy" />
+                        <p className="podcast-cover-title">{podcastData.title}</p>
+                    </div>
+                    
+                    {/* Podcast title */}
+                    <h3 className="podcast-title">{podcastData.title}</h3>
+                    
+                    {/* Seasons section */}
+                    <div className="seasons-section">
+                        <img className="seasons-icon" src={seasonsIcon} alt="Seasons icon" />
+                        <p className="num-seasons">{`${podcastData.seasons} seasons`}</p>
+                    </div>
 
-                {/* Genre section */}
-                <div className="genre-section">
-                    {genreTags}
-                </div>
+                    {/* Genre section */}
+                    <div className="genre-section">
+                        {genreTags}
+                    </div>
 
-                {/* Last updated section */}
-                <p className="updated-status">
-                    {formattedDate}
-                </p>
-            </article>
-        </Link>
+                    {/* Last updated section */}
+                    <p className="updated-status">
+                        {formattedDate}
+                    </p>
+                </article>
+            </Link>
+        </>
     )
 }

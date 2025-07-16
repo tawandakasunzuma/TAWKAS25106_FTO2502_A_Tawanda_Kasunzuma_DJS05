@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Main from './components/Main';
+import ShowDetail from './components/ShowDetail';
 
 import "./styles/App.css"
 
@@ -101,13 +102,15 @@ export default function App() {
 
   return (
     <>
-      <Routes>
       
         <Header 
           searchLetters={searchLetters} 
           setSearchLetters={setSearchLetters}
         />
+        
+        <Routes>
 
+        {/* Homepage route */}
         <Route 
           path='/' 
           element={
@@ -131,11 +134,13 @@ export default function App() {
         >
         </Route>
 
+        {/* Show details route */}
         <Route
           path='/show/:id'
           element={<ShowDetail />}
         >
         </Route>
+      </Routes>
 
         {/* Show error if no data fetched */}
         {hasError && 
@@ -160,8 +165,6 @@ export default function App() {
               <p className="no-podcasts-text">No podcasts found</p>
             </div>
         )}   
-            
-      </Routes>
     </>
   )
 }

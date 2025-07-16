@@ -29,3 +29,7 @@
     font-family: 'Inter',sans-serif;
     color: var(--very-dark-gray-color);
 }
+
+.link {
+    text-decoration: none;
+}

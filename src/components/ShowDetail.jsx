@@ -1,11 +1,127 @@
 import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react";
+import '../styles/ShowDetail.css'
+import backIcon from '../assets/images/back-icon.svg'
+import favoriteIcon from '../assets/images/favorite-icon.svg'
+import calenderIcon from '../assets/images/calender-icon.svg'
 
 export default function ShowDetail () {
+
+    // Create state for card details, loading and errors
+    const [cardDetails, setCardDetails] = useState(null);
+    const [loading,setLoading] = useState(true);
+    const [hasError,setError] = useState(false)
     const { id } = useParams();
+
+    // Fetch data when card clicked 
+    useEffect(() => {
+
+        fetch(`https://podcast-api.netlify.app/id/${id}`)
+
+            // Throw error if data could not be fetched and convert data
+            .then(response => {
+                if (!response.ok) throw new Error ("Page was not found");
+                return response.json();
+            })
+
+            // Set card details to parsed data
+            .then (data => {
+                setCardDetails(data);
+            })
+
+            // Show error in console and change error state
+            .catch(error => {
+                console.error("Error: ",error);
+                setError(true);
+            })
+
+            // Stop loading
+            .finally(() => {
+                setLoading(false);
+            })
+    },[id])
+
+    console.log(cardDetails) // Debug - Check details
+
+    /**
+     * Turns a date string into a human-readable format.
+     *
+     * @param {Object} data - The object that has the date.
+     * @param {string} data.updated - The date string (ISO format).
+     * @returns {string} A readable date string.
+     */
+    function getDate (data) {
+        const date = new Date (data.updated);
+        const day = String(date.getDate()).padStart(2, "0"); // Get day of month
+        const month = date.toLocaleString("en", { month: "long" }); // Get the full month
+        const year = date.getFullYear(); // Get full year
+        const fullDate = `${day} ${month} ${year}`;
+        return fullDate;
+    }
+   const formattedDate = cardDetails ? getDate(cardDetails) : null;
+
+    const genreTags = cardDetails?.genres?.map(genre => (
+        <span key={genre} className="podcast-genre-item">{genre}</span>
+    )) || ["-"];
+    
     return (
         <>
-            {/* Show details of podcast clicked */}
-            <h1>Podcast Detail Page for ID: {id}</h1>
+            {cardDetails &&
+        
+                <div className="podcast-details">
+                    <div className="heading-section">
+                        <img className="heading-icon" src={backIcon} alt="Back icon" />
+                        <h3 className="podcast-heading-title">{cardDetails.title}</h3>
+                        <img className="heading-icon" src={favoriteIcon} alt="Favorite icon" />
+                    </div>
+                    <div className="main-section">
+                        <div className="podcast-details-left">
+                            <img className="podcast-preview-image" src={cardDetails.image} />
+                        </div>
+                        <div className="podcast-details-right">
+                            <div className="description-container">
+                                <h4 className="container-heading">Description</h4>
+                                <p className="podcast-description">{cardDetails.description}</p>
+                            </div>
+                            <div className="genre-container">
+                                <h4 className="container-heading">Genres</h4>
+                                <div className="podcast-genre-container">
+                                    {genreTags}
+                                </div>
+                            </div>
+                            <div className="last-updated-container">
+                            <h4 className="container-heading">Last Updated</h4>
+                            <div className="calender-container">
+                                <img
+                                className="calender-icon"
+                                src={calenderIcon}
+                                alt="Calender icon"
+                                />
+                                <p className="podcast-last-updated">{formattedDate}</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="preview-bottom">
+                        <h3>Seasons</h3>
+                    </div>
+                </div>
+            }
+
+            {/* Show loading info */}
+            {loading && 
+            <div className='loading-container'>
+                <div className='loading-circle'></div>
+                <p className='loading-text'>Loading...</p>
+            </div>
+            }
+
+            {/* Show no podcasts displayed */}
+            {hasError && !loading && (
+                <div className="no-podcasts-container">
+                <p className="no-podcasts-text">Podcast has no details</p>
+                </div>
+            )}   
         </>
     )
 }

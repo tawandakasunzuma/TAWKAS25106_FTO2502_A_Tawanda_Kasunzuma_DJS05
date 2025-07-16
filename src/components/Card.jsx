@@ -43,7 +43,7 @@ export default function Card ({podcastData}) {
 
     return (
         <>
-           <Link to={`/show/${podcastData.id}`}>
+           <Link to={`/show/${podcastData.id}`} className="link">
                 <article className="podcast-container">
                     
                     {/* Image container */}

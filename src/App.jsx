@@ -33,7 +33,6 @@ export default function App() {
       // Set podcast data to data fetched
       .then(data => {
         setPodcastData(data);
-        console.log("Total shows fetched:", data.length);
       })
   
       // Show error in console and on the UI

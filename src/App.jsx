@@ -19,6 +19,29 @@ export default function App() {
   const [sortOrder,setSortOrder] = useState("Newest");
   const [currentPage,setCurrentPage] = useState(1);
 
+  // Set filters and state if it is saved in sessionStorage
+  useEffect(() => {
+  
+    const savedSearch = sessionStorage.getItem('searchLetters');
+    if (savedSearch !== null && savedSearch !== "undefined") {
+      setSearchLetters(savedSearch);
+    }
+
+    const savedGenre = sessionStorage.getItem('selectedGenre');
+    if (savedGenre !== null && savedGenre !== "undefined") {
+      setSelectedGenre(savedGenre);
+    }
+
+    const savedSort = sessionStorage.getItem('sortOrder');
+    if (savedSort !== null && savedSort !== "undefined") {
+      setSortOrder(savedSort);
+    }
+
+    const savedPage = sessionStorage.getItem('currentPage');
+    const pageNum = Number(savedPage);
+    setCurrentPage(pageNum);
+  }, []);
+
   useEffect(() => {
 
     //Fetch data from API
@@ -115,6 +138,7 @@ export default function App() {
           element={
             <Main 
               podcastData={paginatedData}
+              loading={loading}
 
               searchLetters={searchLetters}
 
@@ -157,13 +181,6 @@ export default function App() {
             <p className='loading-text'>Loading...</p>
           </div>
         }
-
-        {/* Show no podcasts displayed */}
-        {filteredData.length === 0 && !loading && (
-            <div className="no-podcasts-container">
-              <p className="no-podcasts-text">No podcasts found</p>
-            </div>
-        )}   
     </>
   )
 }

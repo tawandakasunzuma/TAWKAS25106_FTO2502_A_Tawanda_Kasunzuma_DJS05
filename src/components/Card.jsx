@@ -4,7 +4,7 @@ import seasonsIcon from '../assets/images/seasons-icon.svg';
 import genreList from "../assets/genres";
 import { Link } from "react-router-dom"
 
-export default function Card ({podcastData}) {
+export default function Card ({ podcastData, searchLetters, selectedGenre, sortOrder, currentPage }) {
 
     /**
      * Makes genre tags using genre ID numbers.
@@ -42,11 +42,35 @@ export default function Card ({podcastData}) {
     }
     const formattedDate = getDate(podcastData);
 
+    // Format title to change '&amp;' to '&'
     const decodedTitle = he.decode(podcastData.title);
+
+    /**
+     * Save current filters and state to sessionStorage
+     */
+    function handleClick() {
+        if (searchLetters) {
+            sessionStorage.setItem('searchLetters', searchLetters);
+        }
+        if (selectedGenre && selectedGenre !== "All Genres") {
+            sessionStorage.setItem('selectedGenre', selectedGenre);
+        }
+        if (sortOrder && sortOrder !== "Newest") {
+            sessionStorage.setItem('sortOrder', sortOrder);
+        }
+        // Only save page if it is page 2 up 
+        if (currentPage > 1) {
+            sessionStorage.setItem('currentPage', currentPage.toString());
+        }
+    }
 
     return (
         <>
-           <Link to={`/show/${podcastData.id}`} className="link">
+           <Link 
+            to={`/show/${podcastData.id}`} 
+            onClick={handleClick}
+            className="link"
+           >
                 <article className="podcast-container">
                     
                     {/* Image container */}

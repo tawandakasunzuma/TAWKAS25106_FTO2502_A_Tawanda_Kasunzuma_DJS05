@@ -16,7 +16,13 @@ export default function Main (props) {
             />
 
             {/* Card section */}
-            <CardSection podcastData={props.podcastData} />
+            <CardSection 
+                podcastData={props.podcastData}
+                searchLetters={props.searchLetters}
+                selectedGenre={props.selectedGenre} 
+                sortOrder={props.sortOrder} 
+                currentPage={props.currentPage}
+            />
 
             {/* Pagination section */}
             {props.totalPages > 0 && (
@@ -26,6 +32,13 @@ export default function Main (props) {
                     setCurrentPage={props.setCurrentPage}
                 />
             )}
+
+            {/* Show no podcasts displayed */}
+            {props.podcastData.length === 0 && !props.loading && (
+                <div className="no-podcasts-container">
+                <p className="no-podcasts-text">No podcasts found</p>
+                </div>
+            )}   
         </main>
     )
 }

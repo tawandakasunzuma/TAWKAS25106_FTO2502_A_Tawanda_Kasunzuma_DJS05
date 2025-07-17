@@ -1,8 +1,7 @@
-import he from 'he';
+import he from 'he'
 import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import '../styles/ShowDetail.css'
-import genreList from "../assets/genres";
 import backIcon from '../assets/images/back-icon.svg'
 import favoriteIcon from '../assets/images/favorite-icon.svg'
 import calenderIcon from '../assets/images/calender-icon.svg'
@@ -44,8 +43,6 @@ export default function ShowDetail () {
             })
     },[id])
 
-    console.log(cardDetails) // Debug - Check details
-
     /**
      * Turns a date string into a human-readable format.
      *
@@ -71,7 +68,7 @@ export default function ShowDetail () {
         ));
     }
     
-    const genreTags = cardDetails?.genres ? createGenreTags(cardDetails.genres) : "";
+    const genreTags = cardDetails?.genres ? createGenreTags(cardDetails.genres) : "-";
 
     return (
         <>
@@ -129,6 +126,13 @@ export default function ShowDetail () {
             {hasError && !loading && (
                 <div className="no-podcasts-container">
                 <p className="no-podcasts-text">Podcast has no details</p>
+                </div>
+            )}   
+
+            {/* Show no details available */}
+            {!cardDetails && !loading && (
+                <div className="no-podcasts-container">
+                <p className="no-podcasts-text">No details available</p>
                 </div>
             )}   
         </>

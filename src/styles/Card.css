@@ -7,14 +7,14 @@
     border-radius: var(--normal-border-radius);
     box-shadow: 0 2px 4px var(--light-gray-color);
     width: 100%;
-    transition: all 300ms ease-in-out;
+    transition: all 600ms ease-in-out;
     max-width: 320px;
 }
 
 .podcast-container:hover,
 .podcast-container:focus {
     box-shadow: 0 4px 8px var(--medium-gray-color);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 /* Podcast image */
@@ -35,13 +35,13 @@
     object-fit: cover;
     position: relative;
     z-index: 1;
-    transition: opacity 600ms ease-in-out 150ms;
+    transition: opacity 300ms ease-in-out 150ms;
     display: block;
 }
 
 .podcast-image:hover,
 .podcast-image:active {
-    opacity: 0.1375;
+    opacity: 0.15;
 }
 
 .podcast-cover-title {

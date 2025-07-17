@@ -16,6 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 .heading-icon {
@@ -29,8 +30,13 @@
 
 .heading-icon:hover,
 .heading-icon:focus {
-    opacity: 0.75;
-    transform: scale(1.05);
+    opacity: 1;
+    background-color: rgba(128, 128, 128, 0.15);
+}
+
+.heading-icon:active {
+    color: white;
+    opacity: 0.25;
 }
 
 .podcast-heading-title {
@@ -96,6 +102,7 @@
 
 .podcast-genre-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-left: 1rem;
 }
@@ -118,4 +125,29 @@
 
 .calender-icon {
     width: 20px;
+}
+
+/* ===============
+    Media queries
+=============== */
+
+@media (max-width: 480px) {
+    .podcast-preview-image {
+        max-width: 300px;
+    }
+    .heading-section {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-section {
+        grid-template-columns: 1fr;
+    }
+    .podcast-preview-image {
+        max-width: 350px;
+    }
+    .heading-section {
+        gap: 0.75rem;
+    }
 }

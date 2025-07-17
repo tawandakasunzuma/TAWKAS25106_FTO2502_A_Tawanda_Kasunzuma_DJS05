@@ -14,6 +14,7 @@
     padding: 0.5rem 1rem;
     border-radius: var(--normal-border-radius);
     display: flex;
+    gap: 2rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -23,7 +24,7 @@
 
 .seasons-container:hover {
     border: 2px solid var(--medium-gray-color);
-    transform: translateX(2px);
+    transform: translateX(4px);
 }
 
 .season-title {
@@ -43,6 +44,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
 }
 
 .learn-more-icon {
@@ -51,7 +53,7 @@
     padding: 0.5rem;
     border-radius: 0.5rem;
     cursor: pointer;
-    opacity: 0.75;
+    opacity: 0.5;
     background-color: var(--dark-gray-color);
     transition: all 600ms ease;
 }
@@ -106,4 +108,33 @@
 .episode-image {
     width: 40px;
     border-radius: 0.5rem;
+}
+
+/* ===============
+    Media queries
+=============== */
+
+@media (max-width: 480px) {
+    .episode-list {
+        margin-left: 0.5rem;
+    }
+    .preview-bottom {
+        margin: 1rem 0 0.5rem 0;
+    }
+    .seasons-container {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .episode-list {
+        margin-left: 1rem;
+    }
+    .preview-bottom {
+        margin: 2rem 0 1rem 0;
+    }
+    .seasons-container {
+        gap: 1rem;
+    }
 }

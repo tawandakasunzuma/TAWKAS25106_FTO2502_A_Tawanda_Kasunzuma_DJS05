@@ -1,3 +1,4 @@
+import he from 'he';
 import "../styles/Card.css";
 import seasonsIcon from '../assets/images/seasons-icon.svg';
 import genreList from "../assets/genres";
@@ -41,6 +42,8 @@ export default function Card ({podcastData}) {
     }
     const formattedDate = getDate(podcastData);
 
+    const decodedTitle = he.decode(podcastData.title);
+
     return (
         <>
            <Link to={`/show/${podcastData.id}`} className="link">
@@ -48,12 +51,12 @@ export default function Card ({podcastData}) {
                     
                     {/* Image container */}
                     <div className="image-container">
-                        <img className="podcast-image" src={podcastData.image} alt={`${podcastData.title} cover image`} loading="lazy" />
-                        <p className="podcast-cover-title">{podcastData.title}</p>
+                        <img className="podcast-image" src={podcastData.image} alt={`${decodedTitle} cover image`} loading="lazy" />
+                        <p className="podcast-cover-title">{decodedTitle}</p>
                     </div>
                     
                     {/* Podcast title */}
-                    <h3 className="podcast-title">{podcastData.title}</h3>
+                    <h3 className="podcast-title">{decodedTitle}</h3>
                     
                     {/* Seasons section */}
                     <div className="seasons-section">

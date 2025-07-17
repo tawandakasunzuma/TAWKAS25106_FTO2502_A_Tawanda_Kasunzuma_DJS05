@@ -1,9 +1,12 @@
+import he from 'he';
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
 import '../styles/ShowDetail.css'
+import genreList from "../assets/genres";
 import backIcon from '../assets/images/back-icon.svg'
 import favoriteIcon from '../assets/images/favorite-icon.svg'
 import calenderIcon from '../assets/images/calender-icon.svg'
+import Seasons from "./Seasons";
 
 export default function ShowDetail () {
 
@@ -59,11 +62,17 @@ export default function ShowDetail () {
         return fullDate;
     }
    const formattedDate = cardDetails ? getDate(cardDetails) : null;
-
-    const genreTags = cardDetails?.genres?.map(genre => (
-        <span key={genre} className="podcast-genre-item">{genre}</span>
-    )) || ["-"];
     
+   function createGenreTags(genreNames) {
+        return genreNames.map(name => (
+            <span key={name} className="podcast-genre-item">
+                {name}
+            </span>
+        ));
+    }
+    
+    const genreTags = cardDetails?.genres ? createGenreTags(cardDetails.genres) : "";
+
     return (
         <>
             {cardDetails &&
@@ -71,7 +80,7 @@ export default function ShowDetail () {
                 <div className="podcast-details">
                     <div className="heading-section">
                         <img className="heading-icon" src={backIcon} alt="Back icon" />
-                        <h3 className="podcast-heading-title">{cardDetails.title}</h3>
+                        <h3 className="podcast-heading-title">{he.decode(cardDetails.title)}</h3>
                         <img className="heading-icon" src={favoriteIcon} alt="Favorite icon" />
                     </div>
                     <div className="main-section">
@@ -103,7 +112,7 @@ export default function ShowDetail () {
                         </div>
                     </div>
                     <div className="preview-bottom">
-                        <h3>Seasons</h3>
+                        <Seasons seasons={cardDetails.seasons} />
                     </div>
                 </div>
             }

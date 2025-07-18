@@ -7,7 +7,9 @@ export default function CardSection (props) {
     const cards = props.podcastData.map(podcast => (
         <Card 
             key={podcast.id} 
+
             podcastData={podcast}
+            
             searchLetters={props.searchLetters}
             selectedGenre={props.selectedGenre} 
             sortOrder={props.sortOrder} 

@@ -12,7 +12,9 @@ export default function ShowDetail () {
     // Create state for card details, loading and errors
     const [cardDetails, setCardDetails] = useState(null);
     const [loading,setLoading] = useState(true);
-    const [hasError,setError] = useState(false)
+    const [hasError,setError] = useState(false);
+
+    // Get ID of card clicked
     const { id } = useParams();
 
     // Fetch data when card clicked 
@@ -58,16 +60,21 @@ export default function ShowDetail () {
         const fullDate = `${day} ${month} ${year}`;
         return fullDate;
     }
-   const formattedDate = cardDetails ? getDate(cardDetails) : null;
+    const formattedDate = cardDetails ? getDate(cardDetails) : null;
     
-   function createGenreTags(genreNames) {
+    /**
+     * Converts a list of genre names into span tags that display.
+     *
+     * @param {string[]} genreNames - An array of genre names.
+     * @returns {JSX.Element[]} An array of JSX <span> elements for each genre.
+     */
+    function createGenreTags(genreNames) {
         return genreNames.map(name => (
             <span key={name} className="podcast-genre-item">
                 {name}
             </span>
         ));
     }
-    
     const genreTags = cardDetails?.genres ? createGenreTags(cardDetails.genres) : "-";
 
     return (
@@ -75,40 +82,56 @@ export default function ShowDetail () {
             {cardDetails &&
         
                 <div className="podcast-details">
+
+                    {/* Header section*/}
                     <div className="heading-section">
                         <img className="heading-icon" src={backIcon} alt="Back icon" />
                         <h3 className="podcast-heading-title">{he.decode(cardDetails.title)}</h3>
                         <img className="heading-icon" src={favoriteIcon} alt="Favorite icon" />
                     </div>
+
+                    {/* Main section */}
                     <div className="main-section">
+
+                        {/* Image */}
                         <div className="podcast-details-left">
                             <img className="podcast-preview-image" src={cardDetails.image} />
                         </div>
+
                         <div className="podcast-details-right">
+
+                            {/* Description */}
                             <div className="description-container">
                                 <h4 className="container-heading">Description</h4>
                                 <p className="podcast-description">{cardDetails.description}</p>
                             </div>
+
+                            {/* Genres */}
                             <div className="genre-container">
                                 <h4 className="container-heading">Genres</h4>
                                 <div className="podcast-genre-container">
                                     {genreTags}
                                 </div>
                             </div>
+
+                            {/* Last updated */}
                             <div className="last-updated-container">
-                            <h4 className="container-heading">Last Updated</h4>
-                            <div className="calender-container">
-                                <img
-                                className="calender-icon"
-                                src={calenderIcon}
-                                alt="Calender icon"
-                                />
-                                <p className="podcast-last-updated">{formattedDate}</p>
+                                <h4 className="container-heading">Last Updated</h4>
+                                <div className="calender-container">
+                                    <img
+                                    className="calender-icon"
+                                    src={calenderIcon}
+                                    alt="Calender icon"
+                                    />
+                                    <p className="podcast-last-updated">{formattedDate}</p>
+                                </div>
                             </div>
-                            </div>
+
                         </div>
                     </div>
-                    <div className="preview-bottom">
+
+                    {/* Bottom section */}
+                    <div className="bottom-section">
                         <Seasons seasons={cardDetails.seasons} />
                     </div>
                 </div>
@@ -132,7 +155,7 @@ export default function ShowDetail () {
             {/* Show no details available */}
             {!cardDetails && !loading && (
                 <div className="no-podcasts-container">
-                <p className="no-podcasts-text">No details available</p>
+                    <p className="no-podcasts-text">No details available</p>
                 </div>
             )}   
         </>
